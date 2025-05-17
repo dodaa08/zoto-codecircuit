@@ -160,6 +160,36 @@ export default function FindRest() {
         }
     };
 
+    // Add this handler for the modal submit
+    const handleExactWriteSubmit = async () => {
+        try {
+            setIsLoading(true);
+            setError(null);
+            setShowModal(false);
+            if (!foodPreference.trim()) {
+                throw new Error('Please describe what you want to eat.');
+            }
+            const response = await fetch('/api/writeandfind', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ customPrompt: foodPreference })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to fetch restaurants');
+            }
+            if (!data.restaurants || data.restaurants.length === 0) {
+                throw new Error('No restaurants found matching your request');
+            }
+            setRestaurants(data.restaurants);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to find restaurants');
+            setRestaurants([]);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div className="min-h-screen text-white">
             {/* Header */}
@@ -461,10 +491,7 @@ export default function FindRest() {
                                         <motion.button
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
-                                            onClick={() => {
-                                                // Handle the food preference submission
-                                                setShowModal(false);
-                                            }}
+                                            onClick={handleExactWriteSubmit}
                                             className="px-6 py-2 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-500 transition-colors"
                                         >
                                             Submit
