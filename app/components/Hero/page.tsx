@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import LocationTracker from '../LocationTracker/page';
+import LocationTracker from '../LocationTracker';
 
 export default function Hero() {
     const [showLocationTracker, setShowLocationTracker] = useState(false);

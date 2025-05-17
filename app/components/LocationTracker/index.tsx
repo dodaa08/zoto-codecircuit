@@ -7,8 +7,6 @@ import { useRouter } from 'next/navigation';
 // Create a global store for location
 let globalLocation: { lat: number; lng: number } | null = null;
 
-export const getLocation = () => globalLocation;
-
 export default function LocationTracker() {
     const router = useRouter();
     const [isTracking, setIsTracking] = useState(false);
