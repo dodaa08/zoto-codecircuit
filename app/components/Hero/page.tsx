@@ -69,13 +69,13 @@ export default function Hero() {
                         >
                             Find Restaurants
                         </motion.button>
-                        <motion.button
+                        {/* <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             className="border border-orange-500 text-orange-500 px-8 py-3 rounded-lg text-lg font-medium hover:bg-orange-500/10 transition-colors w-full md:w-auto"
                         >
                             How It Works
-                        </motion.button>
+                        </motion.button> */}
                     </div>
                 </motion.div>
             </div>

@@ -23,7 +23,7 @@ export default function Header() {
             <nav className="container mx-auto px-6 py-4">
                 <div className="flex justify-between items-center">
                     {/* Logo */}
-                    <h1 className="text-3xl font-bold font-mono bg-gradient-to-r from-orange-500 to-red-500 text-transparent bg-clip-text">
+                    <h1 className="text-4xl font-bold font-mono bg-gradient-to-r from-orange-500 to-red-500 text-transparent bg-clip-text">
                         Zoto
                     </h1>
 
@@ -42,7 +42,7 @@ export default function Header() {
                             How It Works
                         </button>
                         <a 
-                            href="https://github.com/yourusername/zoto" 
+                            href="https://github.com/dodaa08/zoto-codecircuit" 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="flex items-center space-x-2 text-gray-300 hover:text-orange-500 transition-colors"
@@ -53,7 +53,7 @@ export default function Header() {
                             <span>GitHub</span>
                         </a>
                         <a 
-                            href="https://youtube.com/watch?v=your-demo-video" 
+                            href="/" 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="flex items-center space-x-2 text-gray-300 hover:text-orange-500 transition-colors"
@@ -63,9 +63,9 @@ export default function Header() {
                             </svg>
                             <span>Watch Demo</span>
                         </a>
-                        <button className="bg-orange-500 px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors">
+                        {/* <button className="bg-orange-500 px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors">
                             Get Started
-                        </button>
+                        </button> */}
                     </div>
 
                     {/* Mobile Menu Button */}
