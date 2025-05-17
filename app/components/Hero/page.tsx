@@ -2,8 +2,10 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import LocationTracker from '../LocationTracker/page';
 
 export default function Hero() {
+    const [showLocationTracker, setShowLocationTracker] = useState(false);
     const headlines = [
         "Find Your Perfect Restaurant 🍽️",
         "Discover Hidden Gems Near You 🔍",
@@ -26,6 +28,10 @@ export default function Hero() {
 
         return () => clearInterval(interval);
     }, []);
+
+    const handleFindRestaurants = () => {
+        setShowLocationTracker(true);
+    };
 
     return (
         <section className="relative min-h-[90vh] flex items-center justify-center bg-gradient-to-b from-black to-black-900">
@@ -58,6 +64,7 @@ export default function Hero() {
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
+                            onClick={handleFindRestaurants}
                             className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-orange-600 transition-colors w-full md:w-auto"
                         >
                             Find Restaurants
@@ -76,6 +83,9 @@ export default function Hero() {
             {/* Decorative Elements */}
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500/5 rounded-full filter blur-3xl"></div>
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500/5 rounded-full filter blur-3xl"></div>
+
+            {/* Location Tracker */}
+            {showLocationTracker && <LocationTracker />}
         </section>
     );
 }
