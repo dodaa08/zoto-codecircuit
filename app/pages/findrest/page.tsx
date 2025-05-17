@@ -56,6 +56,9 @@ export default function FindRest() {
     const [budget, setBudget] = useState('medium');
     const [showModal, setShowModal] = useState(false);
     const [foodPreference, setFoodPreference] = useState('');
+    const [restaurants, setRestaurants] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleTasteToggle = (taste: string) => {
         setSelectedTastes(prev => 
@@ -79,6 +82,82 @@ export default function FindRest() {
                 ? prev.filter(d => d !== diet)
                 : [...prev, diet]
         );
+    };
+
+    const handleFindRestaurants = async () => {
+        try {
+            setIsLoading(true);
+            setError(null);
+            console.log('Starting restaurant search...');
+
+            // Validate required selections
+            if (!selectedCuisines.length) {
+                throw new Error('Please select at least one cuisine');
+            }
+
+            // Get user's current location
+            console.log('Getting user location...');
+            const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(
+                    resolve,
+                    (error) => {
+                        console.error('Geolocation error:', error);
+                        reject(new Error('Please enable location access to find restaurants'));
+                    },
+                    { timeout: 5000 }
+                );
+            });
+
+            console.log('Location obtained:', {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            });
+
+            const requestBody = {
+                mood: selectedMood,
+                tastes: selectedTastes,
+                cuisines: selectedCuisines,
+                dietary: selectedDietary,
+                mealType: selectedMealType,
+                budget: budget,
+                location: {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                },
+                foodPreference: foodPreference
+            };
+
+            console.log('Sending request with preferences:', requestBody);
+
+            const response = await fetch('/api/filterRest', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody)
+            });
+
+            console.log('Response status:', response.status);
+            const data = await response.json();
+            console.log('Response data:', data);
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to fetch restaurants');
+            }
+
+            if (!data.restaurants || data.restaurants.length === 0) {
+                throw new Error('No restaurants found matching your preferences');
+            }
+
+            setRestaurants(data.restaurants);
+            console.log('Successfully found restaurants:', data.restaurants.length);
+        } catch (err) {
+            console.error('Error finding restaurants:', err);
+            setError(err instanceof Error ? err.message : 'Failed to find restaurants');
+            setRestaurants([]); // Clear any previous results
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -263,12 +342,80 @@ export default function FindRest() {
                             <motion.button
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
-                                className="w-full md:w-72 py-4 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-500 transition-colors"
+                                onClick={handleFindRestaurants}
+                                disabled={isLoading}
+                                className={`w-full md:w-72 py-4 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-500 transition-colors ${
+                                    isLoading ? 'opacity-50 cursor-not-allowed' : ''
+                                }`}
                             >
-                                Find My Perfect Restaurant !
+                                {isLoading ? 'Finding Restaurants...' : 'Find My Perfect Restaurant!'}
                             </motion.button>
                         </div>
                     </div>
+
+                    {/* Error Message */}
+                    {error && (
+                        <div className="mt-4 text-red-500 text-center">
+                            {error}
+                        </div>
+                    )}
+
+                    {/* Restaurant Results */}
+                    {restaurants.length > 0 && (
+                        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {restaurants.map((restaurant, index) => (
+                                <motion.div
+                                    key={index}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="bg-gray-800/50 p-6 rounded-xl border border-gray-700"
+                                >
+                                    <h3 className="text-xl font-semibold mb-2">{restaurant.name}</h3>
+                                    <p className="text-gray-400 mb-4">{restaurant.description}</p>
+                                    <div className="space-y-2">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-gray-400">Cuisine:</span>
+                                            <span>{restaurant.cuisine}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-gray-400">Price Range:</span>
+                                            <span>{restaurant.price_range}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-yellow-400">★</span>
+                                            <span>{restaurant.rating}/5</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-gray-400">Location:</span>
+                                            <span>{restaurant.location}</span>
+                                        </div>
+                                        {restaurant.highlights && restaurant.highlights.length > 0 && (
+                                            <div>
+                                                <span className="text-gray-400">Highlights:</span>
+                                                <ul className="list-disc list-inside mt-1">
+                                                    {restaurant.highlights.map((highlight: string, i: number) => (
+                                                        <li key={i} className="text-sm">{highlight}</li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )}
+                                        {restaurant.dietary_options && restaurant.dietary_options.length > 0 && (
+                                            <div>
+                                                <span className="text-gray-400">Dietary Options:</span>
+                                                <div className="flex flex-wrap gap-2 mt-1">
+                                                    {restaurant.dietary_options.map((option: string, i: number) => (
+                                                        <span key={i} className="text-sm bg-gray-700 px-2 py-1 rounded">
+                                                            {option}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    )}
 
                     {/* Modal */}
                     <AnimatePresence>

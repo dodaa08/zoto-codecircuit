@@ -122,7 +122,7 @@ export default function Header() {
                                     How It Works
                                 </button>
                                 <a 
-                                    href="https://github.com/yourusername/zoto" 
+                                    href="https://github.com/dodaa08/zoto-codecircuit" 
                                     target="_blank" 
                                     rel="noopener noreferrer"
                                     className="flex items-center space-x-2 text-gray-300 hover:text-orange-500 transition-colors py-2"
