@@ -1,3 +1,6 @@
+"use client"
+
+
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Header from '@/app/components/header/page';

@@ -4,8 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import LocationTracker from '../LocationTracker';
 
+
+
 export default function Hero() {
     const [showLocationTracker, setShowLocationTracker] = useState(false);
+
     const headlines = [
         "Find Your Perfect Restaurant 🍽️",
         "Discover Hidden Gems Near You 🔍",
@@ -65,7 +68,7 @@ export default function Hero() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={handleFindRestaurants}
-                            className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-orange-600 transition-colors w-full md:w-auto"
+                            className="bg-red-500 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-orange-600 transition-colors w-full md:w-auto"
                         >
                             Find Restaurants
                         </motion.button>

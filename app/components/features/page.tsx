@@ -54,7 +54,7 @@ export default function Features() {
                     transition={{ duration: 0.8 }}
                     className="text-center mb-12 md:mb-20"
                 >
-                    <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-orange-500 to-red-500 text-transparent bg-clip-text">
+                    <h2 className="text-3xl md:text-5xl font-bold mb-4  bg-clip-text">
                         Features You'll Love
                     </h2>
                     <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
