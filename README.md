@@ -19,6 +19,10 @@ Zoto uses your current location to fetch and display nearby restaurants. With a 
 
 ---
 
+![image](https://github.com/user-attachments/assets/2272f170-69e6-4cba-90bd-cd4cd8f39cb8)
+
+
+
 ## 🛠️ Tech Stack
 
 - **Frontend**: Next.js  
