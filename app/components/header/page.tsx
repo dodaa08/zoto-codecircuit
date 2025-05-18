@@ -33,7 +33,7 @@ export default function Header() {
                             onClick={() => scrollToSection('features')}
                             className="text-xl font-bold text-gray-300  cursor-pointer hover:text-orange-500 transition-colors"
                         >
-                            How It Workss
+                            How It Works
                         </button>
                        
                         <a 
@@ -48,9 +48,11 @@ export default function Header() {
                             <span>GitHub</span>
                         </a>
                         <a 
-                            href="/" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
+                            href='#demo'
+                            onClick={(e) => {
+                                e.preventDefault();
+                                document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' });
+                            }}
                             className="flex items-center border border-gray-300 rounded-md px-2 py-1 space-x-2 text-gray-300 hover:text-orange-500 transition-colors"
                         >
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
