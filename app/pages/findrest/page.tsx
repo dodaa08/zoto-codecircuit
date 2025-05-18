@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -355,26 +355,26 @@ export default function FindRest() {
                     <div className='flex flex-col md:flex-row justify-between items-center gap-4'>
                         <div className="mt-8 w-full md:w-auto">
                             <motion.button
-                                whileHover={{ scale: 1.02 }}
+                                // whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                                 onClick={() => setShowModal(true)}
-                                className="w-76 md:w-96 py-4 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-500 transition-colors"
+                                className="w-max md:w-96 py-4 border-2 border-gray-600 text-l text-white rounded-lg font-medium hover:bg-gray-900 cursor-pointer transition-colors"
                             >
                                 Write down exactly what you want to eat
                             </motion.button>
                         </div>
 
-                        <div className='mt-10 flex justify-center'>
-                            <h1 className='text-xl font-medium'>Ya Phir</h1>
-                        </div>
+                        {/* <div className='mt-10 flex justify-center'>
+                            <h1 className='text-xl font-medium'>Or</h1>
+                        </div> */}
 
                         <div className="mt-8 w-full md:w-auto">
                             <motion.button
-                                whileHover={{ scale: 1.02 }}
+                                // whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                                 onClick={handleFindRestaurants}
                                 disabled={isLoading}
-                                className={`w-full md:w-72 py-4 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-500 transition-colors ${
+                                className={`w-max md:w-72 py-4 border-2 border-gray-600 text-l text-white rounded-lg font-medium hover:bg-gray-900 cursor-pointer transition-colors ${
                                     isLoading ? 'opacity-50 cursor-not-allowed' : ''
                                 }`}
                             >

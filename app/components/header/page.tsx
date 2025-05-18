@@ -19,11 +19,11 @@ export default function Header() {
     };
 
     return (
-        <header className="fixed w-full bg-black/80 backdrop-blur-sm z-50">
+        <header className="fixed w-full  backdrop-blur-sm z-50">
             <nav className="container mx-auto px-6 py-4">
                 <div className="flex justify-between items-center">
                     {/* Logo */}
-                    <h1 className="text-4xl font-bold font-mono text-red-500 bg-clip-text">
+                    <h1 className="text-4xl font-bold font-mono text-red-400 bg-clip-text">
                         Zoto
                     </h1>
 
@@ -31,7 +31,7 @@ export default function Header() {
                     <div className="hidden md:flex space-x-8 items-center">
                         <button 
                             onClick={() => scrollToSection('features')}
-                            className="text-xl font-bold text-gray-300 border-b border-gray-300 cursor-pointer hover:text-orange-500 transition-colors"
+                            className="text-xl font-bold text-gray-300  cursor-pointer hover:text-orange-500 transition-colors"
                         >
                             How It Workss
                         </button>
