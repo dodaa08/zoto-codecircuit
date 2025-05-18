@@ -39,3 +39,4 @@ git clone https://github.com/yourusername/zoto.git
 cd zoto
 npm install
 npm run dev
+env.local : add your Gemini API key
